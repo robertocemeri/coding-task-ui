@@ -20,9 +20,22 @@ export default function Home() {
   return (
     <>
       <h1 className="screen-title">Home</h1>
-      <div className="custom-row">
+      <div className="form-floating">
+        <input
+          type="text"
+          className="form-control"
+          id="floatingInputGrid"
+          placeholder="Search Product"
+        />
+        <label htmlFor="floatingInputGrid">Product Title</label>
+      </div>
+      <div className="row d-flex h-100">
+        {/* todo search functionality */}
+
         {products.map((product) => (
-          <ProductCard product={product} />
+          <div className="col-md-6 col-lg-6 col-xl-4 mt-3" key={product.id}>
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </>

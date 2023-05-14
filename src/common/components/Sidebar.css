@@ -22,7 +22,7 @@
 }
 
 .list-group-flush > .list-group-item {
-  background-color: #f4f8fb;
+  background-color: lightgrey;
 }
 
 .item {
@@ -69,7 +69,7 @@ nav ul {
 }
 
 li {
-  border-bottom: 2px solid #edeeee;
+  border-bottom: 2px solid lightgrey;
 }
 
 ol,
@@ -84,11 +84,11 @@ ul {
 }
 
 #sidebarMenu {
-  border-right: 1px solid #edeeee;
+  border-right: 1px solid grey;
 }
 
 .list-group-item:hover {
-  background-color: #f6f5f4;
+  background-color: lightgrey;
 }
 
 .second-ul {
@@ -134,14 +134,4 @@ nav ul .dropdown:hover ul {
   right: 20px;
   font-size: 1.9em;
   color: #737476;
-}
-
-.notification-badge {
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  background-color: red;
-  border-radius: 50%;
-  color: white;
 }

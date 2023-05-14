@@ -17,6 +17,16 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
           id="sidebarMenu"
           className={`sidebar ${!showSidebar ? "d-none" : ""} d-lg-block`}
         >
+          <Link
+            onClick={closeSidebar}
+            className="navbar-brand mt-2 mt-lg-0"
+            to="/"
+          >
+            <div className="d-flex justify-content-center header-logo">
+              Coding Task
+              {/* <img src="" alt="App Logo" /> */}
+            </div>
+          </Link>
           <div onClick={closeSidebar} className="hide d-lg-none">
             &lsaquo;
           </div>

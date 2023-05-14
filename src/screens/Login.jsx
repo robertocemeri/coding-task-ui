@@ -63,7 +63,7 @@ export default function Login() {
                 <label className="form-label">Password</label>
               </div>
               {error ? (
-                <div className="text-center  py-2 bg-danger">{error}</div>
+                <div className="text-center  py-2 text-danger">{error}</div>
               ) : (
                 ""
               )}

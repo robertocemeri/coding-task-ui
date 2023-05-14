@@ -5,12 +5,18 @@ import ApiService from "../services/ApiService";
 const Service = new ApiService();
 
 export const loginUser = async (data) => Service.postData("/login", data);
-export const storeProduct = async (data) =>
-  Service.postData("/product/store", data);
+
 // QUOTE
 // export const updateMetlifeRequest = async (data) =>
 //   Service.postData("/infortuni/metlife/update-quote", data);
 
-// // ? Saved Quotations
+// product routes
 export const getProducts = async () => Service.getData("/products");
 export const getMyProducts = async () => Service.getData("/user/products");
+export const getProductById = async (data) =>
+  Service.getData("/products/" + data);
+export const storeProduct = async (data) =>
+  Service.postData("/products/store", data);
+
+// categories routes
+export const getCategories = async () => Service.getData("/categories");
