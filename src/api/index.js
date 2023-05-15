@@ -17,6 +17,7 @@ export const getProductById = async (data) =>
   Service.getData("/products/" + data);
 export const storeProduct = async (data) =>
   Service.postData("/products/store", data);
+export const placeBid = async (data) => Service.postData("/products/bid", data);
 
 // categories routes
 export const getCategories = async () => Service.getData("/categories");

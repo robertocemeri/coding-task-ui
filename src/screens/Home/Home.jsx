@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getProducts } from "../../api";
 import ProductCard from "../../common/components/ProductCard";
 
-// import moment from "moment";
-
 export default function Home() {
   const [search, setSearch] = useState("");
 

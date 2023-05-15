@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
           src={product?.picture}
           className="card-img-top"
           style={{ height: 230 }}
-          alt="Sample image"
+          alt="Sample "
         />
         <div className="card-body">
           <div className="card-title d-flex justify-content-between align-items-center">

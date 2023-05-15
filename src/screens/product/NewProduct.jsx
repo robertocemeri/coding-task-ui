@@ -187,14 +187,14 @@ export default function NewProduct() {
               <div className="form-group">
                 <label htmlFor="picture">Select product categories</label>
                 {categories.map((category) => (
-                  <>
+                  <div key={category.id}>
                     <br />
                     <input
                       type="checkbox"
                       onChange={(value) => addOrRemoveCAtegory(category.id)}
                     />
                     {category.name}
-                  </>
+                  </div>
                 ))}
               </div>
               {error ? (

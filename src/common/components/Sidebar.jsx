@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import appStorage from "../helpers/appStorage";
-
-const Storage = appStorage();
 
 export default function Sidebar({ showSidebar, setShowSidebar }) {
   const closeSidebar = () => {
@@ -47,7 +44,7 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
                   to="/products"
                   className="list-group-item list-group-item-action py-2 ripple"
                 >
-                  <span className="item">Products</span>
+                  <span className="item">My Listed Products</span>
                 </Link>
               </li>
               <li className="dropdown">
