@@ -37,7 +37,9 @@ export default function ShowProduct() {
 
             <p>Categories</p>
             {product.categories?.length > 0
-              ? product.categories.map((category) => <p>{category.name}</p>)
+              ? product.categories.map((category) => (
+                  <p key={category.id}>{category.name}</p>
+                ))
               : ""}
           </div>
         </div>

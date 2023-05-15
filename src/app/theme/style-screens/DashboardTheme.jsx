@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./DashboardTheme.css";
 import Sidebar from "../../../common/components/Sidebar";
-
+import Header from "../../../common/components/Header";
 export default function DashboardTheme(props) {
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -9,7 +9,7 @@ export default function DashboardTheme(props) {
     <div>
       <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div className="page-content">
-        {/* <Header setShowSidebar={setShowSidebar} /> */}
+        <Header setShowSidebar={setShowSidebar} />
         <div className="page-content-items">{props.children}</div>
       </div>
     </div>

@@ -12,9 +12,10 @@ export default function ProductCard({ product }) {
           alt="Sample image"
         />
         <div className="card-body">
-          <h5 className="card-title d-flex justify-content-between">
-            <h3>{product?.title}</h3> <small>{product.start_price}€</small>
-          </h5>
+          <div className="card-title d-flex justify-content-between align-items-center">
+            <h3>{product?.title}</h3>{" "}
+            <small> Starting: {product.start_price}€</small>
+          </div>
           <p className="card-text">{product?.description}</p>
           <a href={"/product/" + product.id} className="btn btn-primary">
             Check it out
