@@ -15,6 +15,7 @@ import useAuth from "../hooks/useAuth";
 import appStorage from "../common/helpers/appStorage";
 import NotFound from "../common/components/NotFound";
 import ShowProduct from "../screens/product/ShowProduct";
+import Purchases from "../screens/product/Purchases";
 
 const Storage = appStorage();
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/products/" element={<Products />} />
           <Route path="/product/new" element={<NewProduct />} />
           <Route path="/product/:id" element={<ShowProduct />} />
+          <Route path="/purchases/" element={<Purchases />} />
         </Routes>
       </DashboardTheme>
     </Router>

@@ -1,16 +1,26 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { getProductById, placeBid, storeProduct } from "../../api";
+import {
+  buyNowProduct,
+  getProductById,
+  placeBid,
+  storeProduct,
+} from "../../api";
 import { useParams } from "react-router";
 import appStorage from "../../common/helpers/appStorage";
 import moment from "moment";
 const Storage = appStorage();
 const logged_user = Storage.getUser();
 export default function ShowProduct() {
+  const [error, setError] = useState(null);
+  const [bidForm, setBidForm] = useState({
+    bid_price: "",
+  });
+  const [product, setProduct] = useState([]);
+
   const params = useParams();
   useEffect(() => {
     loadPageData();
   }, []);
-  const [product, setProduct] = useState([]);
   const loadPageData = async () => {
     getProductById(params.id).then((res) => {
       setProduct(res.data[0]);
@@ -34,19 +44,15 @@ export default function ShowProduct() {
         clearInterval(timerRef.current);
       };
     }, [eventTime]);
-
+    if (moment(product?.start_time) - moment.now() >= 0) return "";
     return (
       <div>
-        {duration.days()} Days {duration.hours()} Hours {duration.minutes()}{" "}
-        Minutes {duration.seconds()} Seconds
+        Ends: {duration.days()} Days {duration.hours()} Hours{" "}
+        {duration.minutes()} Minutes {duration.seconds()} Seconds
       </div>
     );
   };
 
-  const [error, setError] = useState(null);
-  const [bidForm, setBidForm] = useState({
-    bid_price: "",
-  });
   const submitData = () => {
     if (
       Number(bidForm.bid_price) === 0 ||
@@ -64,10 +70,23 @@ export default function ShowProduct() {
       if (res.statusCode !== 200)
         setError(res.message ? res.message : res.error);
       else {
+        alert("You bought this product");
         window.location.reload(false);
       }
     });
   };
+
+  const buyNowHandler = () => {
+    buyNowProduct({ product_id: product?.id }).then((res) => {
+      if (res.statusCode !== 200)
+        setError(res.message ? res.message : res.error);
+      else {
+        alert("You bought this product");
+        window.location.reload(false);
+      }
+    });
+  };
+
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom">
@@ -76,16 +95,12 @@ export default function ShowProduct() {
             <img src={product.picture} className="img-fluid" alt="Sample " />
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-            {product.id}
-            {product.title}
-            {product.description}
-            {product.buy_now_price}
+            <div>
+              <p>Title: {product.title}</p>
+              <p>Description: {product.description}</p>
+            </div>
 
-            <p>ktu to place a bid </p>
-            <p>to buy now </p>
-            <p>remaining time </p>
-
-            <p>Categories</p>
+            <p>Categories:</p>
             {product.categories?.length > 0
               ? product.categories.map((category) => (
                   <p key={category.id}>{category.name}</p>
@@ -98,34 +113,37 @@ export default function ShowProduct() {
                   <small>Start:{moment(product.start_time).format("l")}</small>
                   <small>End:{moment(product.end_time).format("l")}</small>
                 </div>
-                <p>
-                  {moment(product.start_time) - moment.now() <= 0 ? (
-                    "ad"
-                  ) : (
+                <div>
+                  {moment(product.start_time) - moment.now() >= 0 ? (
                     <p className="text-danger"> Not started yet!</p>
+                  ) : (
+                    ""
                   )}
-                </p>
-                <small>Ends:{Countdown(moment(product.end_time), 1000)}</small>
-                {/* {new Date(2000, 0, 1)} */}
+                </div>
+
+                <small>{Countdown(moment(product.end_time), 1000)}</small>
               </div>
             </div>
             <div className="mt-4">
               <p className="d-flex justify-content-between">
-                Bids here ({product.bids?.length}){" "}
+                Bids here ({product.bids?.length})
                 <small>Highest bid : {product?.max_bid} €</small>
               </p>
               {product.bids?.length > 0 ? (
                 <div className="overflow-auto" style={{ maxHeight: 200 }}>
                   {product?.bids.map((bid) => (
-                    <p>{bid.user.name + " " + bid.bid_price + "€"}</p>
+                    <p key={bid.id}>
+                      {bid.user.name + " " + bid.bid_price + "€"}
+                    </p>
                   ))}
                 </div>
               ) : (
                 "No bids for this product yet! "
               )}
             </div>
-
-            {moment(product.start_time) - moment.now() <= 0 ? (
+            {moment(product.start_time) - moment.now() <= 0 &&
+            moment(product.end_time) - moment.now() >= 0 &&
+            product.sold === 0 ? (
               <div className="mt-4">
                 <p>Place a bid </p>
                 {logged_user.id !== product.user_id ? (
@@ -152,15 +170,25 @@ export default function ShowProduct() {
                         ""
                       )}
                     </div>
-
-                    <div className="text-center ">
-                      <button
-                        type="button"
-                        onClick={submitData}
-                        className="btn btn-primary btn-lg"
-                      >
-                        Place bid
-                      </button>
+                    <div className="d-flex justify-content-between">
+                      <div className="text-center ">
+                        <button
+                          type="button"
+                          onClick={submitData}
+                          className="btn btn-primary btn-lg"
+                        >
+                          Place bid
+                        </button>
+                      </div>
+                      <div className="text-center ">
+                        <button
+                          type="button"
+                          onClick={buyNowHandler}
+                          className="btn btn-primary btn-lg"
+                        >
+                          Buy now for {product.buy_now_price}€
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -168,7 +196,17 @@ export default function ShowProduct() {
                 )}
               </div>
             ) : (
-              <p className="text-danger">Cant place a bid yet!</p>
+              <p className="text-danger">
+                Cant place a bid yet or product sold!
+              </p>
+            )}
+            {product.purchase ? (
+              <p>
+                Buyer: {product.purchase.user.name} paid{" "}
+                {product.purchase.price} €{" "}
+              </p>
+            ) : (
+              ""
             )}
           </div>
         </div>
