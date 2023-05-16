@@ -24,3 +24,11 @@ export const buyNowProduct = async (data) =>
 
 // categories routes
 export const getCategories = async () => Service.getData("/categories");
+
+//notification routes
+export const getMyNotifications = async () =>
+  Service.getData("/user/notifications");
+export const getMyNotificationsCount = async () =>
+  Service.getData("/user/notifications-count");
+export const readAllMyNotifications = async () =>
+  Service.getData("/user/read-all-notifications");

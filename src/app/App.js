@@ -10,12 +10,13 @@ import Login from "../screens/Login";
 import Products from "../screens/product/Products";
 import DashboardTheme from "./theme/style-screens/DashboardTheme";
 import NewProduct from "../screens/product/NewProduct";
-import Home from "../screens/Home/Home";
+import Home from "../screens/home/Home";
 import useAuth from "../hooks/useAuth";
 import appStorage from "../common/helpers/appStorage";
 import NotFound from "../common/components/NotFound";
 import ShowProduct from "../screens/product/ShowProduct";
 import Purchases from "../screens/product/Purchases";
+import Notifications from "../screens/notification/Notifications";
 
 const Storage = appStorage();
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/product/new" element={<NewProduct />} />
           <Route path="/product/:id" element={<ShowProduct />} />
           <Route path="/purchases/" element={<Purchases />} />
+          <Route path="/notifications/" element={<Notifications />} />
         </Routes>
       </DashboardTheme>
     </Router>

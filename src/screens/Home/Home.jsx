@@ -3,7 +3,7 @@ import { getProducts } from "../../api";
 import ProductCard from "../../common/components/ProductCard";
 
 export default function Home() {
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
   useEffect(() => {
     loadPageData();
@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <h1 className="screen-title">Home</h1>
-      <div className="form-floating">
+      {/* <div className="form-floating">
         <input
           type="text"
           className="form-control"
@@ -26,7 +26,7 @@ export default function Home() {
           placeholder="Search Product"
         />
         <label htmlFor="floatingInputGrid">Product Title</label>
-      </div>
+      </div> */}
       <div className="row d-flex h-100">
         {/* todo search functionality */}
 
