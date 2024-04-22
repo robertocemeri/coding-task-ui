@@ -70,7 +70,7 @@ export default function ShowProduct() {
       if (res.statusCode !== 200)
         setError(res.message ? res.message : res.error);
       else {
-        alert("You bought this product");
+        alert("You bid for this product");
         window.location.reload(false);
       }
     });
