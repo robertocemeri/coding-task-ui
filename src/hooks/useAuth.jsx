@@ -7,7 +7,6 @@ const Storage = new StorageService();
 const useAuth = () => {
   const authUser = Storage.getUser();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  console.log(authUser);
   useEffect(() => {
     if (authUser) {
       setIsUserLoggedIn(true);

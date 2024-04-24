@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getMyNotifications, readAllMyNotifications } from "../../api";
+import { getMyNotifications, readAllMyNotifications } from "../api";
 
 export default function Notifications() {
   useEffect(() => {
@@ -10,27 +10,27 @@ export default function Notifications() {
     getMyNotifications().then((res) => {
       setNotifications(res.data);
     });
-    setTimeout(function () {
-      readAllMyNotifications();
-    }, 5000);
+
+    readAllMyNotifications();
   };
 
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom">
-        <div className="row d-flex h-100">
+        <div className="row d-flex h-100 mb-2">
           {notifications?.length > 0 ? (
             notifications.map((notification) => (
-              <div className="d-flex flex-column" key={notification.id}>
-                <p
-                  className={
-                    notification.is_read === 0
-                      ? "text-success"
-                      : "text-secondary"
-                  }
+              <div
+                className={` d-flex flex-column border  
+                ${notification.is_read === 0 ? "bg-secondary" : "bg-light"}`}
+                key={notification.id}
+              >
+                <span
+                  className={` py-2
+                    ${notification.is_read === 0 ? "text-light" : "text-dark"}`}
                 >
                   {notification.text}
-                </p>
+                </span>
               </div>
             ))
           ) : (

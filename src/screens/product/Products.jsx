@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { getMyProducts, storeProduct } from "../../api";
-import ProductCard from "../../common/components/ProductCard";
+import { getMyProducts } from "../../api";
+import ProductCard from "../../components/ProductCard";
 
 export default function Products() {
-  useEffect(() => {
-    loadPageData();
-  }, []);
   const [products, setProducts] = useState([]);
+
   const loadPageData = async () => {
     getMyProducts().then((res) => {
       setProducts(res.data);
     });
   };
+
+  useEffect(() => {
+    loadPageData();
+  }, []);
 
   return (
     <section className="vh-100">

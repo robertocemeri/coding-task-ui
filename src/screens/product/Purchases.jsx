@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getMyPurchases } from "../../api";
-import ProductCard from "../../common/components/ProductCard";
+import ProductCard from "../../components/ProductCard";
 
 export default function Purchases() {
   useEffect(() => {

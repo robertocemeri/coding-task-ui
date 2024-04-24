@@ -2,21 +2,19 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
 } from "react-router-dom";
 import "./App.css";
 
-import Login from "../screens/Login";
-import Products from "../screens/product/Products";
+import Login from "../screens/login";
+import Products from "../screens/product/products";
 import DashboardTheme from "./theme/style-screens/DashboardTheme";
-import NewProduct from "../screens/product/NewProduct";
-import Home from "../screens/home/Home";
-import useAuth from "../hooks/useAuth";
+import NewProduct from "../screens/product/newProduct";
+import Home from '../screens/home'
 import appStorage from "../common/helpers/appStorage";
-import NotFound from "../common/components/NotFound";
-import ShowProduct from "../screens/product/ShowProduct";
-import Purchases from "../screens/product/Purchases";
-import Notifications from "../screens/notification/Notifications";
+import ShowProduct from "../screens/product/showProduct";
+import NotFound from "../components/NotFound"
+import Purchases from "../screens/product/purchases";
+import Notifications from "../screens/notifications";
 
 const Storage = appStorage();
 
@@ -39,7 +37,7 @@ function App() {
       <DashboardTheme>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/products/" element={<Products />} />
           <Route path="/product/new" element={<NewProduct />} />
           <Route path="/product/:id" element={<ShowProduct />} />

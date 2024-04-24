@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import parseJson from "../helpers/parseJSON";
+import parseJson from "../../common/helpers/parseJSON";
 import "./Header.css";
 
 export default function Header({ setShowSidebar }) {

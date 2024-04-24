@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  buyNowProduct,
-  getProductById,
-  placeBid,
-  storeProduct,
-} from "../../api";
+import { buyNowProduct, getProductById, placeBid } from "../../api";
 import { useParams } from "react-router";
 import appStorage from "../../common/helpers/appStorage";
 import moment from "moment";
 const Storage = appStorage();
+
 const logged_user = Storage.getUser();
+
 export default function ShowProduct() {
   const [error, setError] = useState(null);
   const [bidForm, setBidForm] = useState({

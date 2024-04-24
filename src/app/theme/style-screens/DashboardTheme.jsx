@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./DashboardTheme.css";
-import Sidebar from "../../../common/components/Sidebar";
-import Header from "../../../common/components/Header";
+import Sidebar from "../../../components/Sidebar";
+import Header from "../../../components/Header/Header";
 export default function DashboardTheme(props) {
   const [showSidebar, setShowSidebar] = useState(false);
 

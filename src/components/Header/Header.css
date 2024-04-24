@@ -1,6 +1,10 @@
 .page-nav{
     padding: 10px 30px;
     border-bottom: 1px solid #dedede;
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 200;
 }
 .search-box {
     width: 60%;
