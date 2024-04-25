@@ -1,63 +1,54 @@
+import axios from 'axios';
 import { BACKEND_API_URL } from "../config";
 import StorageService from "./StorageService";
 
+
+const options = {
+  baseURL: BACKEND_API_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  timeout: 50000,
+};
+
+const api = axios.create(options);
 const Storage = new StorageService();
-export default class ApiService {
-  #makeHeaders = async () => {
-    let headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    let token = Storage.getToken();
-    if (token !== null) {
-      headers.Authorization = "Bearer " + token;
+
+api.interceptors.request.use(
+  async (config) => {
+    const token = Storage.getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-    return headers;
+export default function ApiService() {
+  const postData = async (path, data) => {
+    try {
+      const response = await api.post(path, data);
+      return { ...response.data, statusCode: response.status };
+    } catch (error) {
+      throw error;
+    }
   };
 
-  #makeBody = (data) => {
-    return JSON.stringify(data);
+  const getData = async (path) => {
+    try {
+      const response = await api.get(path);
+      return { ...response.data, statusCode: response.status };
+    } catch (error) {
+      throw error;
+    }
   };
 
-  async postData(path, data) {
-    let endpoint = BACKEND_API_URL + path;
-    console.warn("POST: " + endpoint);
-    console.warn("DATA", data);
-    let requestData = {
-      method: "POST",
-      headers: await this.#makeHeaders(),
-      body: this.#makeBody(data),
-    };
-    return await fetch(endpoint, requestData)
-      .then((res) => {
-        const statusCode = res.status;
-        const data = res.json();
-        return Promise.all([statusCode, data]);
-      })
-      .then(([statusCode, data]) => {
-        return { ...data, statusCode: statusCode };
-      })
-      .catch((e) => console.log(e));
-  }
-
-  async getData(path) {
-    let endpoint = BACKEND_API_URL + path;
-
-    let requestData = {
-      method: "GET",
-      headers: await this.#makeHeaders(),
-    };
-
-    return await fetch(endpoint, requestData)
-      .then((res) => {
-        const statusCode = res.status;
-        const data = res.json();
-        return Promise.all([statusCode, data]);
-      })
-      .then(([statusCode, data]) => {
-        return { ...data, statusCode: statusCode };
-      })
-      .catch((e) => console.log(e));
-  }
+  return {
+    postData,
+    getData
+  };
 }

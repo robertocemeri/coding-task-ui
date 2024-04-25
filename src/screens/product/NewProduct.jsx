@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCategories, storeProduct } from "../../api";
+import { getCategories, storeProduct } from "../../services";
 import appStorage from "../../common/helpers/appStorage";
 import { useNavigate } from "react-router";
 import Input from "../../components/Input/Input";

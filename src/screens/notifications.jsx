@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { getMyNotifications, readAllMyNotifications } from "../api";
+import { getMyNotifications, readAllMyNotifications } from "../services";
 
 export default function Notifications() {
+  const [notifications, setNotifications] = useState([]);
+
   useEffect(() => {
     loadPageData();
   }, []);
-  const [notifications, setNotifications] = useState([]);
   const loadPageData = async () => {
     getMyNotifications().then((res) => {
       setNotifications(res.data);
     });
-
-    readAllMyNotifications();
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      readAllMyNotifications();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section className="vh-100">

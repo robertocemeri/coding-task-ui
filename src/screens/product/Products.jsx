@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getMyProducts } from "../../api";
+import { getMyProducts } from "../../services";
 import ProductCard from "../../components/ProductCard";
 
 export default function Products() {

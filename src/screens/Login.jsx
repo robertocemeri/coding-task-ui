@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser } from "../api";
+import { loginUser } from "../services";
 import appStorage from "../common/helpers/appStorage";
 import { UI_HOME_URL } from "../config";
 import * as Yup from "yup";
@@ -23,17 +23,25 @@ export default function Login() {
     if (!valid) {
       return;
     }
-    await loginUser(loginForm).then((res) => {
-      if (res.statusCode !== 200) {
+    await loginUser(loginForm)
+      .then((res) => {
+        if (res.statusCode !== 200) {
+          const errors = [];
+          errors["server"] = res.message ? res.message : res.error;
+          setError(errors);
+        } else {
+          Storage.setToken(res.access_token);
+          Storage.setUser(res.user);
+          window.location.replace(UI_HOME_URL);
+        }
+      })
+      .catch((err) => {
         const errors = [];
-        errors["server"] = res.message ? res.message : res.error;
+        errors["server"] = err?.response?.data?.message
+          ? err?.response?.data?.message
+          : err?.response?.data?.error;
         setError(errors);
-      } else {
-        Storage.setToken(res.access_token);
-        Storage.setUser(res.user);
-        window.location.replace(UI_HOME_URL);
-      }
-    });
+      });
   };
 
   const validateData = async () => {

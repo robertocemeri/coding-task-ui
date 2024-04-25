@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { buyNowProduct, getProductById, placeBid } from "../../api";
+import { buyNowProduct, getProductById, placeBid } from "../../services";
 import { useParams } from "react-router";
 import appStorage from "../../common/helpers/appStorage";
 import moment from "moment";

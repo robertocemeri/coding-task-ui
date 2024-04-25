@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
-import { getMyNotificationsCount } from "../api";
+import { getMyNotificationsCount } from "../services";
 import { useLocation } from "react-router-dom";
 
 export default function Sidebar({ showSidebar, setShowSidebar }) {
